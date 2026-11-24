@@ -1,0 +1,24 @@
+:root {
+  --color-fondo: #f9c28e;
+  --color-naranja: #ff8c00;
+  --color-naranja-oscuro: #d97706;
+  --color-cafe: #7a4510;
+  --color-azul: #25526e;
+  --color-texto: #1a1a1a;
+  --color-blanco: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+main {
+  padding: 16px;
+}
