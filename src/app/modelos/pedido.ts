@@ -15,3 +15,9 @@ export interface Pedido {
   distanciaKm: number | null;
   fecha: string;
 }
+
+export interface DatosEntrega {
+  cliente: string;
+  direccion: string;
+  telefono: string;
+}
