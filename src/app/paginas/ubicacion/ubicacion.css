@@ -1,0 +1,59 @@
+.pagina-ubicacion {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--color-blanco);
+  border-radius: 12px;
+  color: var(--color-texto);
+}
+
+.pagina-ubicacion h1 {
+  color: var(--color-cafe);
+  margin-top: 0;
+}
+
+.pagina-ubicacion button {
+  background-color: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.pagina-ubicacion button:hover:not(:disabled) {
+  background-color: var(--color-naranja-oscuro);
+}
+
+.pagina-ubicacion button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mensaje-error {
+  color: #b5002b;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.informacion-ubicacion {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.informacion-ubicacion h2 {
+  color: var(--color-cafe);
+  margin-top: 0;
+}
+
+.informacion-ubicacion a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--color-azul);
+  font-weight: bold;
+  text-decoration: underline;
+}
