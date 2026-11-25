@@ -1,0 +1,85 @@
+/* Tarjeta principal de contacto */
+.pagina-contacto {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--color-blanco);
+  border-radius: 12px;
+  color: var(--color-texto);
+}
+
+/* Titulo principal */
+.pagina-contacto h1 {
+  color: var(--color-cafe);
+  margin-top: 0;
+}
+
+/* Estructura en columna para el formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Etiquetas de cada campo */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-weight: bold;
+  color: var(--color-cafe);
+}
+
+/* Campos de texto */
+input,
+textarea {
+  padding: 0.75rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-texto);
+}
+
+/* Borde naranja al seleccionar un campo */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-naranja);
+}
+
+/* Texto de error debajo de cada campo */
+small {
+  color: #b5002b;
+  font-weight: normal;
+  font-size: 0.85rem;
+}
+
+/* Boton de envio */
+button {
+  background-color: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+/* Cambio de color al pasar el mouse sobre el boton */
+button:hover {
+  background-color: var(--color-naranja-oscuro);
+}
+
+/* Recuadro verde de confirmacion */
+.mensaje-exito {
+  background-color: #e6f4ea;
+  color: #1a7f37;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 1rem;
+}
