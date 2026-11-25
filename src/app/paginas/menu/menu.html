@@ -1,1 +1,34 @@
-<p>menu works!</p>
+<section class="menu" aria-labelledby="titulo-menu">
+  <h1 id="titulo-menu">Menú</h1>
+
+  <ul class="platos" id="lista-platos">
+    @for (plato of platos; track plato.id) {
+      <li>
+        <article class="plato">
+          <h2>{{ plato.nombre }}</h2>
+          <img [src]="plato.imagen" [alt]="plato.nombre" width="313" height="313" loading="lazy" />
+          <p class="descripcion">{{ plato.descripcion }}</p>
+
+          @if (mostrarDetalles()) {
+            <p class="precio">{{ plato.precio | precioCop }}</p>
+          }
+        </article>
+      </li>
+    }
+  </ul>
+
+  <div class="acciones">
+    <button
+      type="button"
+      class="boton"
+      aria-controls="lista-platos"
+      [attr.aria-expanded]="mostrarDetalles()"
+      (click)="alternarDetalles()">
+      {{ mostrarDetalles() ? 'Mostrar menos' : 'Mostrar más' }}
+    </button>
+
+    @if (mostrarDetalles()) {
+      <a routerLink="/domicilio" class="boton">Pedir a domicilio</a>
+    }
+  </div>
+</section>
