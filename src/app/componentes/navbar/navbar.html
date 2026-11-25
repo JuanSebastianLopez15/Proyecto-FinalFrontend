@@ -1,15 +1,62 @@
+<!-- Barra de navegacion principal -->
 <header class="navbar">
-  <a routerLink="/" class="marca">Restaurante</a>
-  <nav>
-    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">Menú</a>
-    <a routerLink="/reservar" routerLinkActive="activo">Reservar</a>
-    <a routerLink="/domicilio" routerLinkActive="activo">Domicilio</a>
-    <a routerLink="/ubicacion" routerLinkActive="activo">Ubicación</a>
-    <a routerLink="/contacto" routerLinkActive="activo">Contáctanos</a>
-    <a routerLink="/nosotros" routerLinkActive="activo">Nosotros</a>
-  </nav>
-  <div class="cuenta">
-    <a routerLink="/login" routerLinkActive="activo">Iniciar sesión</a>
-    <a routerLink="/registro" routerLinkActive="activo">Registrarse</a>
+  <!-- Nombre o marca del restaurante -->
+  <a routerLink="/" class="marca" (click)="cerrarMenu()">Restaurante</a>
+
+  <!-- Boton hamburguesa visible solo en pantallas pequenas -->
+  <button
+    type="button"
+    class="btn-hamburguesa"
+    (click)="alternarMenu()"
+    aria-label="Abrir menu de navegacion"
+  >
+    ☰
+  </button>
+
+  <!-- Contenedor colapsable con enlaces y cuenta -->
+  <div class="contenido-menu" [class.abierto]="menuAbierto()">
+    <!-- Enlaces principales de navegacion -->
+    <nav>
+      <a
+        routerLink="/"
+        routerLinkActive="activo"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="cerrarMenu()"
+      >
+        Menu
+      </a>
+      <a routerLink="/reservar" routerLinkActive="activo" (click)="cerrarMenu()">
+        Reservar
+      </a>
+      <a routerLink="/domicilio" routerLinkActive="activo" (click)="cerrarMenu()">
+        Domicilio
+      </a>
+      <a routerLink="/ubicacion" routerLinkActive="activo" (click)="cerrarMenu()">
+        Ubicacion
+      </a>
+      <a routerLink="/contacto" routerLinkActive="activo" (click)="cerrarMenu()">
+        Contactanos
+      </a>
+      <a routerLink="/nosotros" routerLinkActive="activo" (click)="cerrarMenu()">
+        Nosotros
+      </a>
+    </nav>
+
+    <!-- Opciones de sesion segun el estado del usuario -->
+    <div class="cuenta">
+      @if (auth.haySesion()) {
+        <span class="saludo">Hola, {{ auth.sesion()?.nombre }}</span>
+        <button type="button" class="btn-salir" (click)="salir()">
+          Cerrar sesion
+        </button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="activo" (click)="cerrarMenu()">
+          Iniciar sesion
+        </a>
+        <a routerLink="/registro" routerLinkActive="activo" (click)="cerrarMenu()">
+          Registrarse
+        </a>
+      }
+    </div>
   </div>
 </header>
