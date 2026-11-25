@@ -1,1 +1,49 @@
-<p>reservar works!</p>
+<section class="reservar">
+  <h2>Reservar una mesa</h2>
+
+  <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+    <label>Nombre
+      <input formControlName="nombre">
+    </label>
+    @if (invalido('nombre')) {
+      <small>Escribe tu nombre, mínimo 3 letras</small>
+    }
+
+    <label>Fecha
+      <input type="date" formControlName="fecha">
+    </label>
+    @if (invalido('fecha')) {
+      <small>Elige una fecha</small>
+    }
+
+    <label>Hora
+      <input type="time" formControlName="hora">
+    </label>
+    @if (invalido('hora')) {
+      <small>Elige una hora</small>
+    }
+
+    <label>Personas
+      <input type="number" formControlName="personas">
+    </label>
+    @if (invalido('personas')) {
+      <small>Entre 1 y 10 personas</small>
+    }
+
+    <button type="submit" [disabled]="form.invalid">Reservar</button>
+  </form>
+
+  @if (creada()) {
+    <p class="ok">¡Reserva creada!</p>
+  }
+
+  <h3>Mis reservas</h3>
+  <ul>
+    @for (r of reservas(); track r.id) {
+      <li>
+        {{ r.nombre }} · {{ r.fecha }} · {{ r.hora }} · {{ r.personas }} personas
+        <button (click)="cancelar(r.id)">Cancelar</button>
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,9 @@
+@if (visible()) {
+  <aside class="banner" aria-label="Aviso de cookies">
+    <p>Usamos cookies para recordar tus preferencias, como tu correo al iniciar sesión.</p>
+    <div class="botones">
+      <button (click)="responder('aceptadas')">Aceptar</button>
+      <button class="secundario" (click)="responder('rechazadas')">Rechazar</button>
+    </div>
+  </aside>
+}

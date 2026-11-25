@@ -1,1 +1,45 @@
-<p>registro works!</p>
+<section class="registro">
+  <h2>Crear cuenta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+    <label>Nombre completo
+      <input formControlName="nombre">
+    </label>
+    @if (invalido('nombre')) {
+      <small>Escribe tu nombre, entre 3 y 40 letras</small>
+    }
+
+    <label>Correo
+      <input type="email" formControlName="correo">
+    </label>
+    @if (invalido('correo')) {
+      <small>Escribe un correo válido, como ana@correo.com</small>
+    }
+
+    <label>Contraseña
+      <input type="password" formControlName="clave">
+    </label>
+    @if (invalido('clave')) {
+      <small>Escribe una contraseña de mínimo 8 caracteres</small>
+    }
+
+    <label>Confirmar contraseña
+      <input type="password" formControlName="confirmar"
+             [class.no-coincide]="form.hasError('noCoinciden')">
+    </label>
+    @if (invalido('confirmar')) {
+      <small>Repite la contraseña</small>
+    } @else if (form.hasError('noCoinciden') && form.controls.confirmar.touched) {
+      <small>Las contraseñas no coinciden</small>
+    }
+
+    <button type="submit" [disabled]="form.invalid">Registrarme</button>
+  </form>
+
+  @if (correoRepetido()) {
+    <p class="error">Ese correo ya está registrado. <a routerLink="/login">Inicia sesión</a></p>
+  }
+  @if (registrado()) {
+    <p class="ok">¡Cuenta creada! <a routerLink="/login">Inicia sesión</a></p>
+  }
+</section>

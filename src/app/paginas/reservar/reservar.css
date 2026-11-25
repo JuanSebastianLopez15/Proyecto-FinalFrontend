@@ -1,0 +1,83 @@
+.reservar {
+  --error: #b5002b;
+  --ok: #1a7f37;
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--color-blanco);
+  border-radius: 12px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+input {
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-weight: 400;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: var(--error);
+}
+
+input.ng-valid.ng-touched {
+  border-color: var(--ok);
+}
+
+small {
+  color: var(--error);
+}
+
+.ok {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+button {
+  margin-top: 16px;
+  padding: 10px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+li button {
+  margin: 0;
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--error);
+  border: 2px solid var(--error);
+}
