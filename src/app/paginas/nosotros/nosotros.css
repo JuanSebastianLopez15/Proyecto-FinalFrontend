@@ -1,0 +1,25 @@
+/* Tarjeta principal de nosotros */
+.pagina-nosotros {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--color-blanco);
+  border-radius: 12px;
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+/* Titulos en color cafe institucional */
+.pagina-nosotros h1,
+.pagina-nosotros h2 {
+  color: var(--color-cafe);
+}
+
+.pagina-nosotros h1 {
+  margin-top: 0;
+}
+
+/* Lista de horarios */
+.pagina-nosotros ul {
+  padding-left: 1.5rem;
+}
