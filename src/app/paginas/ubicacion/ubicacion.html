@@ -1,1 +1,63 @@
-<p>ubicacion works!</p>
+
+<!-- Contenedor principal de la pagina -->
+<section class="pagina-ubicacion">
+
+  <!-- Titulo y descripcion -->
+  <h1>Encuentranos</h1>
+
+  <p>
+    Consulta tu ubicacion actual y conoce la distancia hasta nuestro restaurante.
+  </p>
+
+  <!-- Boton para solicitar la ubicacion -->
+  <button
+    type="button"
+    (click)="obtenerUbicacion()"
+    [disabled]="cargando()"
+  >
+    {{ cargando() ? 'Obteniendo ubicacion...' : 'Obtener mi ubicacion' }}
+  </button>
+
+  <!-- Muestra un mensaje cuando ocurre un error -->
+  @if (mensajeError()) {
+    <p class="mensaje-error">
+      {{ mensajeError() }}
+    </p>
+  }
+
+  <!-- Muestra la informacion cuando se obtiene la ubicacion -->
+  @if (coordenadas()) {
+    <div class="informacion-ubicacion">
+
+      <h2>Tu ubicacion actual</h2>
+
+      <!-- Muestra las coordenadas del usuario -->
+      <p>
+        <strong>Latitud:</strong> {{ coordenadas()?.lat }}
+      </p>
+
+      <p>
+        <strong>Longitud:</strong> {{ coordenadas()?.lng }}
+      </p>
+
+      <!-- Muestra la distancia calculada en kilometros -->
+      @if (distancia() !== null) {
+        <p>
+          <strong>Distancia al restaurante:</strong>
+          {{ distancia() | number:'1.2-2' }} km
+        </p>
+      }
+
+      <!-- Enlace para consultar la ubicacion en OpenStreetMap -->
+      <a
+        [href]="'https://www.openstreetmap.org/?mlat=' + coordenadas()?.lat + '&mlon=' + coordenadas()?.lng + '#map=17/' + coordenadas()?.lat + '/' + coordenadas()?.lng"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ver mi ubicacion en el mapa
+      </a>
+
+    </div>
+  }
+
+</section>

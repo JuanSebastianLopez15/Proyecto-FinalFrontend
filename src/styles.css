@@ -1,3 +1,4 @@
+/* Variables globales de color */
 :root {
   --color-fondo: #f9c28e;
   --color-naranja: #ff8c00;
@@ -8,17 +9,28 @@
   --color-blanco: #ffffff;
 }
 
-* {
+/* Asegura que padding y bordes no aumenten el ancho de las cajas */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+/* Configuracion base del documento y prevencion de scroll horizontal */
+html,
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
   font-family: system-ui, sans-serif;
-  background: var(--color-fondo);
+  background-color: var(--color-fondo);
   color: var(--color-texto);
 }
 
-main {
-  padding: 16px;
+/* Evita que imagenes grandes desborden en pantallas pequenas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
