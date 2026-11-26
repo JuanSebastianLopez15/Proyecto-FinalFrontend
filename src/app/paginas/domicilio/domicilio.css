@@ -1,4 +1,6 @@
 .domicilio {
+  --error: #b5002b;
+  --ok: #1a7f37;
   max-width: 1100px;
   margin: 0 auto;
   color: var(--color-cafe);
@@ -160,26 +162,32 @@ h2 {
 }
 
 label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   margin-top: 12px;
   font-weight: 700;
 }
 
 input {
-  margin-top: 4px;
   padding: 10px;
   border: 2px solid var(--color-cafe);
   border-radius: 8px;
   font: inherit;
+  font-weight: 400;
 }
 
 input.ng-invalid.ng-touched {
-  border-color: #b91c1c;
+  border-color: var(--error);
 }
 
-.error {
-  margin: 4px 0 0;
-  color: #b91c1c;
-  font-size: 0.9rem;
+input.ng-valid.ng-touched {
+  border-color: var(--ok);
+}
+
+small {
+  margin-top: 4px;
+  color: var(--error);
 }
 
 .boton {

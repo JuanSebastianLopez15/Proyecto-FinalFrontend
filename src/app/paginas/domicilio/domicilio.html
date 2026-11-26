@@ -77,41 +77,41 @@
     </div>
   </div>
 
-  @if (pedidoCreado(); as pedido) {
+  @if (pedidoCreado()) {
     <div class="confirmacion" role="status">
       <h2>¡Pedido recibido!</h2>
       <p>
-        Pedido n.º {{ pedido.id }} para {{ pedido.cliente }}, en {{ pedido.direccion }}.
-        Total: {{ pedido.total | precioCop }}.
+        Pedido n.º {{ pedidoCreado()?.id }} para {{ pedidoCreado()?.cliente }},
+        en {{ pedidoCreado()?.direccion }}.
       </p>
       <button type="button" class="boton" (click)="nuevoPedido()">Hacer otro pedido</button>
     </div>
   } @else {
-    <form class="formulario" [formGroup]="formulario" (ngSubmit)="confirmarPedido()">
+    <form class="formulario" [formGroup]="form" (ngSubmit)="confirmarPedido()" novalidate>
       <h2>Datos de entrega</h2>
 
-      <label for="cliente">Nombre</label>
-      <input id="cliente" type="text" formControlName="cliente" autocomplete="name" />
-      @if (campoInvalido('cliente')) {
-        <p class="error">Escribe tu nombre (mínimo 3 letras).</p>
+      <label>Nombre
+        <input formControlName="cliente" autocomplete="name">
+      </label>
+      @if (invalido('cliente')) {
+        <small>Escribe tu nombre, mínimo 3 letras</small>
       }
 
-      <label for="direccion">Dirección en Manizales</label>
-      <input id="direccion" type="text" formControlName="direccion" autocomplete="street-address" />
-      @if (campoInvalido('direccion')) {
-        <p class="error">Escribe la dirección de entrega.</p>
+      <label>Dirección en Manizales
+        <input formControlName="direccion" autocomplete="street-address">
+      </label>
+      @if (invalido('direccion')) {
+        <small>Escribe la dirección de entrega</small>
       }
 
-      <label for="telefono">Celular</label>
-      <input id="telefono" type="tel" formControlName="telefono" autocomplete="tel" inputmode="numeric" />
-      @if (campoInvalido('telefono')) {
-        <p class="error">Escribe un celular de 10 dígitos que empiece por 3.</p>
+      <label>Celular
+        <input type="tel" formControlName="telefono" autocomplete="tel">
+      </label>
+      @if (invalido('telefono')) {
+        <small>Escribe un celular de 10 dígitos que empiece por 3</small>
       }
 
-      <button
-        type="submit"
-        class="boton"
-        [disabled]="formulario.invalid || !pedidoService.hayPlatos()">
+      <button type="submit" class="boton" [disabled]="form.invalid || !pedidoService.hayPlatos()">
         Confirmar pedido
       </button>
     </form>
