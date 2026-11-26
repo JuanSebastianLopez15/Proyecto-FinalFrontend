@@ -1,1 +1,38 @@
-<p>login works!</p>
+<section class="login">
+  @if (sesion()) {
+    <h2>Hola, {{ sesion()?.nombre }}</h2>
+    <p>Ya iniciaste sesión.</p>
+    <button (click)="cerrarSesion()">Cerrar sesión</button>
+  } @else {
+    <h2>Iniciar sesión</h2>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <label>Correo
+        <input type="email" formControlName="correo">
+      </label>
+      @if (invalido('correo')) {
+        <small>Escribe un correo válido, como ana@correo.com</small>
+      }
+
+      <label>Contraseña
+        <input type="password" formControlName="clave">
+      </label>
+      @if (invalido('clave')) {
+        <small>Escribe tu contraseña</small>
+      }
+
+      <label class="check">
+        <input type="checkbox" formControlName="recordar">
+        Recordar mi correo
+      </label>
+
+      <button type="submit" [disabled]="form.invalid">Entrar</button>
+    </form>
+
+    @if (errorLogin()) {
+      <p class="error">Correo o contraseña incorrectos</p>
+    }
+
+    <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate</a></p>
+  }
+</section>

@@ -9,11 +9,12 @@ import { Terminos } from './paginas/terminos/terminos';
 import { Registro } from './paginas/registro/registro';
 import { Login } from './paginas/login/login';
 import { NoEncontrado } from './paginas/no-encontrado/no-encontrado';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: Menu },
   { path: 'reservar', component: Reservar },
-  { path: 'domicilio', component: Domicilio },
+  { path: 'domicilio', component: Domicilio, canActivate: [authGuard] },
   { path: 'ubicacion', component: Ubicacion },
   { path: 'contacto', component: Contacto },
   { path: 'nosotros', component: Nosotros },

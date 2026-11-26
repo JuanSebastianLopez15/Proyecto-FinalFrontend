@@ -39,15 +39,15 @@ git checkout feature/su-nombre
 | 4 menús con rutas, navbar y footer | `app.routes.ts`, `componentes/navbar`, `componentes/footer` | Base |
 | Ruta 404 y enlace activo | `paginas/no-encontrado`, `routerLinkActive` en `navbar` | Base |
 | Menú de platos | `/` · `paginas/menu` | Pendiente |
-| Reservas | `/reservar` · `paginas/reservar` | Pendiente |
+| Reservas | `/reservar` · `paginas/reservar` · `servicios/reserva.service.ts` | Hecho |
 | Domicilio (drag and drop, pedido, mapa de Manizales) | `/domicilio` · `paginas/domicilio` | Pendiente |
 | Geolocalización | `/ubicacion` · `paginas/ubicacion` | Pendiente |
 | Contacto | `/contacto` · `paginas/contacto` | Pendiente |
 | Sobre nosotros | `/nosotros` · `paginas/nosotros` | Pendiente |
 | Términos y condiciones | `/terminos` · `paginas/terminos` | Pendiente |
-| Formulario de registro | `/registro` · `paginas/registro` | Pendiente |
-| Login, sesión y guard | `/login` · `paginas/login` · `guards/` | Pendiente |
-| Cookies | `componentes/banner-cookies` · `servicios/` | Pendiente |
+| Formulario de registro | `/registro` · `paginas/registro` · `servicios/auth.service.ts` · `validadores/coinciden.ts` | Hecho |
+| Login, sesión, guard y cerrar sesión | `/login` · `paginas/login` · `guards/auth.guard.ts` · `servicios/auth.service.ts` | Hecho |
+| Cookies | `servicios/cookie.service.ts` · `componentes/banner-cookies` · "recordar correo" en `paginas/login` | Hecho |
 | Diseño responsive | `componentes/navbar` y todas las vistas | Pendiente |
 | Buenas prácticas | `servicios/`, `modelos/`, `validadores/` | En curso |
 

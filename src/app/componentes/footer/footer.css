@@ -1,0 +1,36 @@
+/* Contenedor principal del pie de pagina */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: var(--color-cafe);
+  color: var(--color-blanco);
+  padding: 1.25rem 1.5rem;
+  margin-top: auto;
+}
+
+/* Texto descriptivo */
+footer p {
+  margin: 0;
+}
+
+/* Enlace a terminos y condiciones */
+footer a {
+  color: var(--color-fondo);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: var(--color-blanco);
+}
+
+/* Ajuste centrado en pantallas pequenas */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,41 @@
+.banner {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-azul);
+  color: var(--color-blanco);
+  border-radius: 12px;
+}
+
+.banner p {
+  margin: 0;
+  flex: 1 1 240px;
+}
+
+.botones {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 14px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.secundario {
+  background: transparent;
+  border: 2px solid var(--color-blanco);
+}

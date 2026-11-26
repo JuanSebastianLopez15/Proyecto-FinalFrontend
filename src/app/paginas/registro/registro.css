@@ -1,0 +1,63 @@
+.registro {
+  --error: #b5002b;
+  --ok: #1a7f37;
+  max-width: 420px;
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--color-blanco);
+  border-radius: 12px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+input {
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: var(--error);
+}
+
+input.ng-valid.ng-touched {
+  border-color: var(--ok);
+}
+
+input.no-coincide.ng-touched {
+  border-color: var(--error);
+}
+
+small,
+.error {
+  color: var(--error);
+}
+
+.ok {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+button {
+  margin-top: 16px;
+  padding: 10px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
