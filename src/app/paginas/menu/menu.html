@@ -1,1 +1,55 @@
-<p>menu works!</p>
+<section class="menu" aria-labelledby="titulo-menu">
+  <h1 id="titulo-menu">Menú</h1>
+
+  <ul class="platos" id="lista-platos">
+    @for (plato of platos; track plato.id) {
+      <li>
+        <article class="plato">
+          <h2>{{ plato.nombre }}</h2>
+          <img [src]="plato.imagen" [alt]="plato.nombre" width="313" height="313" loading="lazy" />
+          <p class="descripcion">{{ plato.descripcion }}</p>
+
+          @if (mostrarDetalles()) {
+            <p class="precio">$ {{ plato.precio.toLocaleString('es-CO') }}</p>
+          }
+        </article>
+      </li>
+    }
+  </ul>
+
+  <div class="acciones">
+    <button
+      type="button"
+      class="boton"
+      aria-controls="lista-platos"
+      [attr.aria-expanded]="mostrarDetalles()"
+      (click)="alternarDetalles()">
+      {{ mostrarDetalles() ? 'Mostrar menos' : 'Mostrar más' }}
+    </button>
+  </div>
+
+  <nav class="opciones" aria-label="Opciones del restaurante">
+    <a routerLink="/reservar" class="opcion">
+      <span class="boton">Reservar</span>
+      <img src="iconos/reservar.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/domicilio" class="opcion">
+      <span class="boton">Domicilio</span>
+      <img src="iconos/domicilio.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/ubicacion" class="opcion">
+      <span class="boton">Ubicación</span>
+      <img src="iconos/ubicacion.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/contacto" class="opcion">
+      <span class="boton">Contáctanos</span>
+      <img src="iconos/contacto.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/nosotros" class="opcion">
+      <span class="boton">Nosotros</span>
+      <img src="iconos/nosotros.png" alt="" width="80" height="80">
+    </a>
+  </nav>
+
+  <a routerLink="/terminos" class="boton terminos">Términos y condiciones</a>
+</section>

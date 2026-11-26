@@ -1,1 +1,134 @@
-<p>domicilio works!</p>
+<section class="domicilio" aria-labelledby="titulo-domicilio">
+  <h1 id="titulo-domicilio">Domicilio</h1>
+  <p class="ayuda">Arrastra los platos a tu pedido, o toca «Agregar».</p>
+
+  <div class="tablero">
+    <div class="catalogo">
+      <h2>Platos</h2>
+      <ul class="lista-platos">
+        @for (plato of platos; track plato.id) {
+          <li
+            class="plato"
+            draggable="true"
+            [class.arrastrando]="platoArrastrado() === plato.id"
+            (dragstart)="alIniciarArrastre($event, plato)"
+            (dragend)="alTerminarArrastre()">
+            <img [src]="plato.imagen" [alt]="plato.nombre" width="72" height="72" />
+            <div class="plato-info">
+              <h3>{{ plato.nombre }}</h3>
+              <p>$ {{ plato.precio.toLocaleString('es-CO') }}</p>
+            </div>
+            <button
+              type="button"
+              class="boton boton-chico"
+              [attr.aria-label]="'Agregar ' + plato.nombre + ' al pedido'"
+              (click)="agregar(plato)">
+              Agregar
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div
+      class="zona-pedido"
+      [class.activa]="zonaActiva()"
+      aria-live="polite"
+      (dragover)="alPasarSobreZona($event)"
+      (dragleave)="alSalirDeZona()"
+      (drop)="alSoltar($event)">
+      <h2>Tu pedido</h2>
+
+      @if (pedidoService.items().length === 0) {
+        <p class="vacio">Suelta aquí los platos que quieres pedir.</p>
+      } @else {
+        <ul class="lista-items">
+          @for (item of pedidoService.items(); track item.plato.id) {
+            <li class="item">
+              <span class="item-nombre">{{ item.plato.nombre }}</span>
+              <div class="cantidad">
+                <button
+                  type="button"
+                  [attr.aria-label]="'Quitar uno de ' + item.plato.nombre"
+                  (click)="pedidoService.cambiarCantidad(item.plato.id, -1)">
+                  −
+                </button>
+                <span>{{ item.cantidad }}</span>
+                <button
+                  type="button"
+                  [attr.aria-label]="'Agregar uno de ' + item.plato.nombre"
+                  (click)="pedidoService.cambiarCantidad(item.plato.id, 1)">
+                  +
+                </button>
+              </div>
+              <span class="item-subtotal">$ {{ (item.plato.precio * item.cantidad).toLocaleString('es-CO') }}</span>
+              <button
+                type="button"
+                class="quitar"
+                [attr.aria-label]="'Quitar ' + item.plato.nombre + ' del pedido'"
+                (click)="pedidoService.quitar(item.plato.id)">
+                ✕
+              </button>
+            </li>
+          }
+        </ul>
+        <p class="total">Total: $ {{ pedidoService.total().toLocaleString('es-CO') }}</p>
+      }
+    </div>
+  </div>
+
+  @if (pedidoCreado()) {
+    <div class="confirmacion" role="status">
+      <h2>¡Pedido recibido!</h2>
+      <p>
+        Pedido n.º {{ pedidoCreado()?.id }} para {{ pedidoCreado()?.cliente }},
+        en {{ pedidoCreado()?.direccion }}.
+        Total: $ {{ pedidoCreado()?.total?.toLocaleString('es-CO') }}.
+      </p>
+      @if (pedidoCreado()?.distanciaKm !== null) {
+        <p>Estás a {{ pedidoCreado()?.distanciaKm?.toLocaleString('es-CO') }} km del restaurante.</p>
+      } @else {
+        <p>No pudimos obtener tu ubicación, así que el pedido quedó sin la distancia.</p>
+      }
+      <button type="button" class="boton" (click)="nuevoPedido()">Hacer otro pedido</button>
+    </div>
+  } @else {
+    <form class="formulario" [formGroup]="form" (ngSubmit)="confirmarPedido()" novalidate>
+      <h2>Datos de entrega</h2>
+
+      <label>Nombre
+        <input formControlName="cliente" autocomplete="name">
+      </label>
+      @if (invalido('cliente')) {
+        <small>Escribe tu nombre, mínimo 3 letras</small>
+      }
+
+      <label>Dirección en Manizales
+        <input formControlName="direccion" autocomplete="street-address">
+      </label>
+      @if (invalido('direccion')) {
+        <small>Escribe la dirección de entrega</small>
+      }
+
+      <label>Celular
+        <input type="tel" formControlName="telefono" autocomplete="tel">
+      </label>
+      @if (invalido('telefono')) {
+        <small>Escribe un celular de 10 dígitos que empiece por 3</small>
+      }
+
+      <button type="submit" class="boton" [disabled]="form.invalid || !pedidoService.hayPlatos() || enviando()">
+        {{ enviando() ? 'Calculando distancia...' : 'Confirmar pedido' }}
+      </button>
+    </form>
+  }
+
+  <section class="mapa" aria-labelledby="titulo-mapa">
+    <h2 id="titulo-mapa">Cobertura en Manizales</h2>
+    <iframe
+      title="Mapa de Manizales con la ubicación del restaurante"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-75.530,5.030,-75.450,5.090&layer=mapnik&marker=5.0562,-75.4898"
+      loading="lazy">
+    </iframe>
+  </section>
+</section>

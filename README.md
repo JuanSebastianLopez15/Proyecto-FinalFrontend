@@ -38,9 +38,9 @@ git checkout feature/su-nombre
 |---|---|---|
 | 4 menús con rutas, navbar y footer | `app.routes.ts`, `componentes/navbar`, `componentes/footer` | Base |
 | Ruta 404 y enlace activo | `paginas/no-encontrado`, `routerLinkActive` en `navbar` | Base |
-| Menú de platos | `/` · `paginas/menu` | Pendiente |
+| Menú de platos | `/` · `paginas/menu` · `servicios/plato.service.ts` · `modelos/plato.ts` | Hecho |
 | Reservas | `/reservar` · `paginas/reservar` · `servicios/reserva.service.ts` | Hecho |
-| Domicilio (drag and drop, pedido, mapa de Manizales) | `/domicilio` · `paginas/domicilio` | Pendiente |
+| Domicilio (drag and drop, pedido, mapa de Manizales) | `/domicilio` · `paginas/domicilio` · `servicios/pedido.service.ts` · `modelos/pedido.ts` · botón "Agregar" como alternativa táctil · distancia con `servicios/ubicacion.service.ts` | Hecho |
 | Geolocalización | `/ubicacion` · `paginas/ubicacion` | Pendiente |
 | Contacto | `/contacto` · `paginas/contacto` | Pendiente |
 | Sobre nosotros | `/nosotros` · `paginas/nosotros` | Pendiente |
