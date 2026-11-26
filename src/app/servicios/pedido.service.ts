@@ -1,77 +1,65 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Plato } from '../modelos/plato';
 import { DatosEntrega, ItemPedido, Pedido } from '../modelos/pedido';
 
-const CLAVE_PEDIDOS = 'pedidos';
-
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
-  private readonly itemsCarrito = signal<ItemPedido[]>([]);
-  private readonly pedidosGuardados = signal<Pedido[]>(this.leerPedidos());
+  private readonly clavePedidos = 'restaurante-pedidos';
 
-  readonly items = this.itemsCarrito.asReadonly();
-  readonly pedidos = this.pedidosGuardados.asReadonly();
-  readonly total = computed(() =>
-    this.itemsCarrito().reduce((suma, item) => suma + item.plato.precio * item.cantidad, 0),
-  );
-  readonly cantidadPlatos = computed(() =>
-    this.itemsCarrito().reduce((suma, item) => suma + item.cantidad, 0),
-  );
+  items = signal<ItemPedido[]>([]);
 
   agregar(plato: Plato): void {
-    this.itemsCarrito.update((items) => {
-      const existe = items.some((item) => item.plato.id === plato.id);
-      return existe
-        ? items.map((item) =>
-            item.plato.id === plato.id ? { ...item, cantidad: item.cantidad + 1 } : item,
-          )
-        : [...items, { plato, cantidad: 1 }];
-    });
+    const yaEsta = this.items().find((item) => item.plato.id === plato.id);
+    if (yaEsta) {
+      this.cambiarCantidad(plato.id, 1);
+      return;
+    }
+    this.items.set([...this.items(), { plato: plato, cantidad: 1 }]);
   }
 
   cambiarCantidad(platoId: number, cambio: number): void {
-    this.itemsCarrito.update((items) =>
-      items
-        .map((item) =>
-          item.plato.id === platoId ? { ...item, cantidad: item.cantidad + cambio } : item,
-        )
-        .filter((item) => item.cantidad > 0),
-    );
+    const nuevos = this.items()
+      .map((item) =>
+        item.plato.id === platoId ? { plato: item.plato, cantidad: item.cantidad + cambio } : item
+      )
+      .filter((item) => item.cantidad > 0);
+    this.items.set(nuevos);
   }
 
   quitar(platoId: number): void {
-    this.itemsCarrito.update((items) => items.filter((item) => item.plato.id !== platoId));
+    this.items.set(this.items().filter((item) => item.plato.id !== platoId));
   }
 
-  vaciar(): void {
-    this.itemsCarrito.set([]);
+  hayPlatos(): boolean {
+    return this.items().length > 0;
+  }
+
+  total(): number {
+    let suma = 0;
+    for (const item of this.items()) {
+      suma += item.plato.precio * item.cantidad;
+    }
+    return suma;
   }
 
   crearPedido(datos: DatosEntrega, distanciaKm: number | null): Pedido {
     const pedido: Pedido = {
       id: Date.now(),
-      items: this.itemsCarrito(),
-      ...datos,
+      items: this.items(),
+      cliente: datos.cliente,
+      direccion: datos.direccion,
+      telefono: datos.telefono,
       total: this.total(),
-      distanciaKm,
-      fecha: new Date().toISOString(),
+      distanciaKm: distanciaKm
     };
-
-    this.pedidosGuardados.update((pedidos) => [...pedidos, pedido]);
-    localStorage.setItem(CLAVE_PEDIDOS, JSON.stringify(this.pedidosGuardados()));
-    this.vaciar();
+    const pedidos = this.leerPedidos();
+    pedidos.push(pedido);
+    localStorage.setItem(this.clavePedidos, JSON.stringify(pedidos));
+    this.items.set([]);
     return pedido;
   }
 
   private leerPedidos(): Pedido[] {
-    const guardados = localStorage.getItem(CLAVE_PEDIDOS);
-    if (!guardados) {
-      return [];
-    }
-    try {
-      return JSON.parse(guardados) as Pedido[];
-    } catch {
-      return [];
-    }
+    return JSON.parse(localStorage.getItem(this.clavePedidos) ?? '[]');
   }
 }

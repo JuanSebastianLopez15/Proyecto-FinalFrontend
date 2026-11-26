@@ -5,6 +5,12 @@ export interface ItemPedido {
   cantidad: number;
 }
 
+export interface DatosEntrega {
+  cliente: string;
+  direccion: string;
+  telefono: string;
+}
+
 export interface Pedido {
   id: number;
   items: ItemPedido[];
@@ -13,11 +19,4 @@ export interface Pedido {
   telefono: string;
   total: number;
   distanciaKm: number | null;
-  fecha: string;
-}
-
-export interface DatosEntrega {
-  cliente: string;
-  direccion: string;
-  telefono: string;
 }

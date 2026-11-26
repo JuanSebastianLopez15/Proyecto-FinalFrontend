@@ -67,7 +67,7 @@ export class Domicilio {
   }
 
   protected confirmarPedido(): void {
-    if (this.formulario.invalid || this.pedidoService.cantidadPlatos() === 0) {
+    if (this.formulario.invalid || !this.pedidoService.hayPlatos()) {
       this.formulario.markAllAsTouched();
       return;
     }

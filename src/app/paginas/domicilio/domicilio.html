@@ -111,7 +111,7 @@
       <button
         type="submit"
         class="boton"
-        [disabled]="formulario.invalid || pedidoService.cantidadPlatos() === 0">
+        [disabled]="formulario.invalid || !pedidoService.hayPlatos()">
         Confirmar pedido
       </button>
     </form>
