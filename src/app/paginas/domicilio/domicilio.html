@@ -85,6 +85,11 @@
         en {{ pedidoCreado()?.direccion }}.
         Total: $ {{ pedidoCreado()?.total?.toLocaleString('es-CO') }}.
       </p>
+      @if (pedidoCreado()?.distanciaKm !== null) {
+        <p>Estás a {{ pedidoCreado()?.distanciaKm?.toLocaleString('es-CO') }} km del restaurante.</p>
+      } @else {
+        <p>No pudimos obtener tu ubicación, así que el pedido quedó sin la distancia.</p>
+      }
       <button type="button" class="boton" (click)="nuevoPedido()">Hacer otro pedido</button>
     </div>
   } @else {
@@ -112,8 +117,8 @@
         <small>Escribe un celular de 10 dígitos que empiece por 3</small>
       }
 
-      <button type="submit" class="boton" [disabled]="form.invalid || !pedidoService.hayPlatos()">
-        Confirmar pedido
+      <button type="submit" class="boton" [disabled]="form.invalid || !pedidoService.hayPlatos() || enviando()">
+        {{ enviando() ? 'Calculando distancia...' : 'Confirmar pedido' }}
       </button>
     </form>
   }

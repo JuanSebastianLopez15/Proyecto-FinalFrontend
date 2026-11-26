@@ -4,6 +4,8 @@ import { Plato } from '../../modelos/plato';
 import { Pedido } from '../../modelos/pedido';
 import { PlatoService } from '../../servicios/plato.service';
 import { PedidoService } from '../../servicios/pedido.service';
+import { UbicacionService } from '../../servicios/ubicacion.service';
+import { RESTAURANTE } from '../../modelos/restaurante';
 
 @Component({
   selector: 'app-domicilio',
@@ -14,12 +16,14 @@ import { PedidoService } from '../../servicios/pedido.service';
 export class Domicilio {
   private platoService = inject(PlatoService);
   pedidoService = inject(PedidoService);
+  private ubicacionService = inject(UbicacionService);
   private fb = inject(FormBuilder);
 
   platos = this.platoService.obtenerTodos();
   platoArrastrado = signal<number | null>(null);
   zonaActiva = signal(false);
   pedidoCreado = signal<Pedido | null>(null);
+  enviando = signal(false);
 
   form = this.fb.nonNullable.group({
     cliente: ['', [Validators.required, Validators.minLength(3)]],
@@ -65,14 +69,27 @@ export class Domicilio {
     return !!control && control.invalid && control.touched;
   }
 
-  confirmarPedido(): void {
+  async confirmarPedido(): Promise<void> {
     if (this.form.invalid || !this.pedidoService.hayPlatos()) {
       this.form.markAllAsTouched();
       return;
     }
-    const pedido = this.pedidoService.crearPedido(this.form.getRawValue(), null);
+    this.enviando.set(true);
+    const distancia = await this.calcularDistancia();
+    const pedido = this.pedidoService.crearPedido(this.form.getRawValue(), distancia);
     this.pedidoCreado.set(pedido);
     this.form.reset();
+    this.enviando.set(false);
+  }
+
+  private async calcularDistancia(): Promise<number | null> {
+    try {
+      const posicion = await this.ubicacionService.obtenerPosicion();
+      const distancia = this.ubicacionService.distanciaKm(posicion, RESTAURANTE);
+      return Math.round(distancia * 10) / 10;
+    } catch {
+      return null;
+    }
   }
 
   nuevoPedido(): void {
