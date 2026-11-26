@@ -4,11 +4,10 @@ import { Plato } from '../../modelos/plato';
 import { Pedido } from '../../modelos/pedido';
 import { PlatoService } from '../../servicios/plato.service';
 import { PedidoService } from '../../servicios/pedido.service';
-import { PrecioCopPipe } from '../../pipes/precio-cop-pipe';
 
 @Component({
   selector: 'app-domicilio',
-  imports: [ReactiveFormsModule, PrecioCopPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './domicilio.html',
   styleUrl: './domicilio.css',
 })

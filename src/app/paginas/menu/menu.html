@@ -10,7 +10,7 @@
           <p class="descripcion">{{ plato.descripcion }}</p>
 
           @if (mostrarDetalles()) {
-            <p class="precio">{{ plato.precio | precioCop }}</p>
+            <p class="precio">$ {{ plato.precio.toLocaleString('es-CO') }}</p>
           }
         </article>
       </li>

@@ -16,7 +16,7 @@
             <img [src]="plato.imagen" [alt]="plato.nombre" width="72" height="72" />
             <div class="plato-info">
               <h3>{{ plato.nombre }}</h3>
-              <p>{{ plato.precio | precioCop }}</p>
+              <p>$ {{ plato.precio.toLocaleString('es-CO') }}</p>
             </div>
             <button
               type="button"
@@ -61,7 +61,7 @@
                   +
                 </button>
               </div>
-              <span class="item-subtotal">{{ item.plato.precio * item.cantidad | precioCop }}</span>
+              <span class="item-subtotal">$ {{ (item.plato.precio * item.cantidad).toLocaleString('es-CO') }}</span>
               <button
                 type="button"
                 class="quitar"
@@ -72,7 +72,7 @@
             </li>
           }
         </ul>
-        <p class="total">Total: {{ pedidoService.total() | precioCop }}</p>
+        <p class="total">Total: $ {{ pedidoService.total().toLocaleString('es-CO') }}</p>
       }
     </div>
   </div>
@@ -83,6 +83,7 @@
       <p>
         Pedido n.º {{ pedidoCreado()?.id }} para {{ pedidoCreado()?.cliente }},
         en {{ pedidoCreado()?.direccion }}.
+        Total: $ {{ pedidoCreado()?.total?.toLocaleString('es-CO') }}.
       </p>
       <button type="button" class="boton" (click)="nuevoPedido()">Hacer otro pedido</button>
     </div>
