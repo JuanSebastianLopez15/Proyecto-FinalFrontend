@@ -90,3 +90,42 @@ h1 {
   outline: 3px solid var(--color-azul);
   outline-offset: 3px;
 }
+
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px 20px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 3px solid var(--color-cafe);
+}
+
+.opcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.opcion img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.opcion:hover .boton {
+  background: var(--color-naranja-oscuro);
+}
+
+.opcion:focus-visible {
+  outline: 3px solid var(--color-azul);
+  outline-offset: 3px;
+}
+
+.terminos {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}

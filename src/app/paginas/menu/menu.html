@@ -26,9 +26,30 @@
       (click)="alternarDetalles()">
       {{ mostrarDetalles() ? 'Mostrar menos' : 'Mostrar más' }}
     </button>
-
-    @if (mostrarDetalles()) {
-      <a routerLink="/domicilio" class="boton">Pedir a domicilio</a>
-    }
   </div>
+
+  <nav class="opciones" aria-label="Opciones del restaurante">
+    <a routerLink="/reservar" class="opcion">
+      <span class="boton">Reservar</span>
+      <img src="iconos/reservar.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/domicilio" class="opcion">
+      <span class="boton">Domicilio</span>
+      <img src="iconos/domicilio.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/ubicacion" class="opcion">
+      <span class="boton">Ubicación</span>
+      <img src="iconos/ubicacion.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/contacto" class="opcion">
+      <span class="boton">Contáctanos</span>
+      <img src="iconos/contacto.png" alt="" width="80" height="80">
+    </a>
+    <a routerLink="/nosotros" class="opcion">
+      <span class="boton">Nosotros</span>
+      <img src="iconos/nosotros.png" alt="" width="80" height="80">
+    </a>
+  </nav>
+
+  <a routerLink="/terminos" class="boton terminos">Términos y condiciones</a>
 </section>
